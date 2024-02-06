@@ -42,7 +42,7 @@ class HomeController extends Controller
         $url = 'https://server-inorwat-main.kq6wtm.easypanel.host/sensor';
 
         // Your API token
-        $token = '746eb902819ff958739cc01599dba0b32b9172ae27e96d3b7684994770020781';
+        $token = env('SECRET_KEY');
 
         // Set up the PUT request
         $response = Http::withHeaders([
@@ -72,7 +72,7 @@ class HomeController extends Controller
         $url = 'https://server-inorwat-main.kq6wtm.easypanel.host/sensor';
 
         // Your API token
-        $token = '746eb902819ff958739cc01599dba0b32b9172ae27e96d3b7684994770020781';
+        $token = env('SECRET_KEY');
 
         // Set up the PUT request
         $response = Http::withHeaders([
