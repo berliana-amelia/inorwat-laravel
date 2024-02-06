@@ -51,7 +51,7 @@ class AuthController extends Controller
             ]),
             CURLOPT_HTTPHEADER => array(
                 'Content-Type: application/json',
-                'Authorization: Bearer ' + env('SECRET_KEY'),
+                'Authorization: Bearer ' . env('SECRET_KEY'),
             ),
         ));
 
