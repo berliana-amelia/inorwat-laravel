@@ -123,7 +123,7 @@
                                             class="img-fluid" />
                                     </div>
                                     <div class="col-md-6">
-                                        <p class="card-text-custom">{{ $data['humidity'] }}</p>
+                                        <p class="card-text-custom" id="humidityValue">{{ $data['humidity'] }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -141,7 +141,8 @@
                                             class="img-fluid" />
                                     </div>
                                     <div class="col-md-6">
-                                        <p class="card-text-custom">{{ $data['temperature'] }}</p>
+                                        <p class="card-text-custom" id="temperatureValue">{{ $data['temperature'] }}
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -158,7 +159,7 @@
                                             class="img-fluid" />
                                     </div>
                                     <div class="col-md-6">
-                                        <p class="card-text-custom">{{ $data['ph'] }}</p>
+                                        <p class="card-text-custom" id="phValue">{{ $data['ph'] }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -176,7 +177,7 @@
                                             class="img-fluid" />
                                     </div>
                                     <div class="col-md-6">
-                                        <p class="card-text-custom">{{ $data['amonia'] }}</p>
+                                        <p class="card-text-custom" id="amoniaValue">{{ $data['amonia'] }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -263,9 +264,29 @@
 
         // Initial update
         updateClock();
-        setTimeout(function() {
-            location.reload();
-        }, 30000);
+
+        function fetchLatestData() {
+            // Fetch the latest data from the server
+            fetch('/dashboard')
+                .then(response => response.json())
+                .then(data => {
+                    // Update the UI for each data point
+                    updateDataPoint('humidity', data.humidity);
+                    updateDataPoint('ph', data.ph);
+                    updateDataPoint('temperature', data.temperature);
+                    updateDataPoint('amonia', data.amonia);
+
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+
+        function updateDataPoint(dataPoint, value) {
+            // Update the value of the specified data point on the UI
+            document.getElementById(dataPoint + 'Value').innerText = value;
+        }
+        setInterval(fetchLatestData, 5000);
     </script>
     <script>
         function toggleMotor(isChecked) {
