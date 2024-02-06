@@ -186,15 +186,21 @@
                         <div class="card-custom" style="height: 184px">
                             <div class="card-body">
                                 <h5 class="card-tittle-custom">Motor</h5>
-                                <div class="row align-items-center text-center justify-content-center">
-                                    <div class="col-md-6">
-                                        <!-- Icon (Assuming you have an icon, replace this with your actual icon) -->
-                                        <img src="{{ secure_asset('IMG/humidity.svg') }}" alt="Icon"
-                                            class="img-fluid" />
+                                <div class="text-center">
+                                    <label class="switch">
+                                        <input type="checkbox" id="motorSwitch"
+                                            {{ $data['motor'] == 1 ? 'checked' : '' }}
+                                            onchange="toggleMotor(this.checked)">
+                                        <span class="slider
+                                            round"
+                                            style="{{ $data['motor'] == 1 ? 'background-color: #27774C;' : '' }} "></span>
+                                    </label>
+                                    <div class="spinner-border text-primary" role="status" id="loadingSpinner"
+                                        style="display: none;">
+                                        <span class="visually-hidden">Loading...</span>
                                     </div>
-                                    <div class="col-md-6">
-                                        <p class="card-text-custom">{{ $data['motor'] }}</p>
-                                    </div>
+                                    <p class="card-text mt-2" id="motorStatus">Motor Status:
+                                        {{ $data['motor'] == 1 ? 'ON' : 'OFF' }}</p>
                                 </div>
                             </div>
                         </div>
@@ -204,15 +210,21 @@
                         <div class="card-custom" style="height: 184px">
                             <div class="card-body">
                                 <h5 class="card-tittle-custom">Water Sprayer</h5>
-                                <div class="row align-items-center text-center justify-content-center">
-                                    <div class="col-md-6">
-                                        <!-- Icon (Assuming you have an icon, replace this with your actual icon) -->
-                                        <img src="{{ secure_asset('IMG/humidity.svg') }}" alt="Icon"
-                                            class="img-fluid" />
+                                <div class="text-center">
+                                    <label class="switch">
+                                        <input type="checkbox" id="sprayerSwitch"
+                                            {{ $data['sprayer'] == 1 ? 'checked' : '' }}
+                                            onchange="toogleSprayer(this.checked)">
+                                        <span class="slider
+                                            round"
+                                            style="{{ $data['sprayer'] == 1 ? 'background-color: #27774C;' : '' }} "></span>
+                                    </label>
+                                    <div class="spinner-border text-primary" role="status"
+                                        id="loadingSpinnerSprayer" style="display: none;">
+                                        <span class="visually-hidden">Loading...</span>
                                     </div>
-                                    <div class="col-md-6">
-                                        <p class="card-text-custom">{{ $data['sprayer'] }}</p>
-                                    </div>
+                                    <p class="card-text mt-2" id="motorStatus">Sprayer Status:
+                                        {{ $data['sprayer'] == 1 ? 'ON' : 'OFF' }}</p>
                                 </div>
                             </div>
                         </div>
@@ -225,6 +237,7 @@
 
     <!-- Bootstrap JS and Popper.js -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
         function updateClock() {
             const now = new Date();
@@ -252,8 +265,86 @@
         updateClock();
         setTimeout(function() {
             location.reload();
-        }, 15000);
+        }, 30000);
     </script>
+    <script>
+        function toggleMotor(isChecked) {
+            var motorValue = isChecked ? 1 : 0;
+
+            // Show loading spinner
+            document.getElementById('loadingSpinner').style.display = 'block';
+
+            // Send a POST request to the Laravel controller
+            fetch('/toggle-motor', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    },
+                    body: JSON.stringify({
+                        motor: motorValue,
+                    }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Hide loading spinner when the response is received
+                    document.getElementById('loadingSpinner').style.display = 'none';
+
+                    // Process the response data (if needed)
+                    console.log(data);
+                    location.reload();
+
+                    // Handle success or update UI as needed
+                })
+                .catch(error => {
+                    // Hide loading spinner on error
+                    document.getElementById('loadingSpinner').style.display = 'none';
+
+                    // Handle errors (if needed)
+                    console.error('Error:', error);
+                });
+        }
+
+        function toogleSprayer(isChecked) {
+            var motorValue = isChecked ? 1 : 0;
+
+            // Show loading spinner
+            document.getElementById('loadingSpinnerSprayer').style.display = 'block';
+
+            // Send a POST request to the Laravel controller
+            fetch('/toggle-sprayer', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    },
+                    body: JSON.stringify({
+                        sprayer: motorValue,
+                    }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Hide loading spinner when the response is received
+                    document.getElementById('loadingSpinnerSprayer').style.display = 'none';
+
+                    // Process the response data (if needed)
+                    console.log(data);
+                    location.reload();
+
+                    // Handle success or update UI as needed
+                })
+                .catch(error => {
+                    // Hide loading spinner on error
+                    document.getElementById('loadingSpinner').style.display = 'none';
+
+                    // Handle errors (if needed)
+                    console.error('Error:', error);
+                });
+        }
+    </script>
+
+
+
 </body>
 
 </html>
