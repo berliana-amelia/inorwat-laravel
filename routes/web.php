@@ -17,10 +17,10 @@ use App\Http\Controllers\HomeController;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('login', [AuthController::class, 'index'])->name('login.index');
+Route::get('login', [AuthController::class, 'index'])->name('login');
 Route::post('login', [AuthController::class, 'login'])->name('auth');
 Route::get('home', [HomeController::class, 'index'])->middleware('auth.check')->name('home');
-Route::get('get-data', [HomeController::class, 'fetchData'])->middleware('auth.check')->name('home');
+Route::get('get-data', [HomeController::class, 'fetchData'])->middleware('auth.check');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::post('/toggle-motor', [HomeController::class, 'toggleMotor'])->middleware('auth.check');
 Route::post('/toggle-sprayer', [HomeController::class, 'toogleSprayer'])->middleware('auth.check');
