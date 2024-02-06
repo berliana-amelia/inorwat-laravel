@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bootstrap Dashboard</title>
+    <title>Inorwat Dashboard</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap" rel="stylesheet">
@@ -267,7 +267,7 @@
 
         function fetchLatestData() {
             // Fetch the latest data from the server
-            fetch('/dashboard')
+            fetch('/home')
                 .then(response => response.json())
                 .then(data => {
                     // Update the UI for each data point
