@@ -216,3 +216,7 @@ input:checked + .slider:before {
     -ms-transform: translateX(68px);
     transform: translateX(68px);
 }
+
+test {
+    color: blue;
+}
