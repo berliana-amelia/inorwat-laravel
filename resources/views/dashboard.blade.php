@@ -225,23 +225,6 @@
                     <div class="col-md-1"></div>
                     <div class="col-md-5">
                         <div class="card-custom" style="height: 184px">
-                            <div class="card-body ">
-                                <h5 class="card-tittle-custom">Amonia</h5>
-                                <div class="row align-items-center text-center justify-content-center">
-                                    <div class="col-md-6">
-                                        <!-- Icon (Assuming you have an icon, replace this with your actual icon) -->
-                                        <img src="{{ secure_asset('IMG/amonia.svg') }}" alt="Icon"
-                                            class="img-fluid" />
-                                    </div>
-                                    <div class="col-md-6">
-                                        <p class="card-text-custom" id="amoniaValue">{{ $data['amonia'] }}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-5">
-                        <div class="card-custom" style="height: 184px">
                             <div class="card-body">
                                 <h5 class="card-tittle-custom">Motor</h5>
                                 <div class="text-center">
@@ -331,7 +314,6 @@
                     updateDataPoint('humidity', data.humidity);
                     updateDataPoint('ph', data.ph);
                     updateDataPoint('temperature', data.temperature);
-                    updateDataPoint('amonia', data.amonia);
 
                 })
                 .catch(error => {
