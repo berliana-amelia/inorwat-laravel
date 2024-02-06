@@ -19,10 +19,6 @@ class HomeController extends Controller
         $data = $response->json();
         $name = Session::get('user.name');
 
-        // Return JSON response for AJAX requests
-        if (request()->ajax()) {
-            return response()->json($data);
-        }
 
         return view('dashboard', compact('name', 'data'));
     }
