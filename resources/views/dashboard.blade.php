@@ -13,6 +13,63 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ secure_asset('assets/css/custom.css') }}">
+
+    <style>
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 167px;
+            /* Increase the width */
+            height: 93.94px;
+            /* Increase the height */
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            border-radius: 60px;
+            /* Make it round */
+            -webkit-transition: 0.4s;
+            transition: 0.4s;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 58px;
+            /* Increase the height of the knob */
+            width: 58px;
+            /* Increase the width of the knob */
+            left: 18px;
+            /* Adjust the position */
+            bottom: 18px;
+            /* Adjust the position */
+            background-color: white;
+            border-radius: 50%;
+            /* Make it round */
+            -webkit-transition: 0.4s;
+            transition: 0.4s;
+        }
+
+        input:checked+.slider {
+            background-color: #27774c;
+        }
+
+        input:focus+.slider {
+            box-shadow: 0 0 1px #27774c;
+        }
+
+        input:checked+.slider:before {
+            -webkit-transform: translateX(68px);
+            -ms-transform: translateX(68px);
+            transform: translateX(68px);
+        }
+    </style>
 </head>
 
 <body>
@@ -267,7 +324,7 @@
 
         function fetchLatestData() {
             // Fetch the latest data from the server
-            fetch('/home')
+            fetch('/get-data')
                 .then(response => response.json())
                 .then(data => {
                     // Update the UI for each data point

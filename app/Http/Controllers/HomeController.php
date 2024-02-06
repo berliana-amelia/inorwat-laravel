@@ -26,6 +26,16 @@ class HomeController extends Controller
 
         return view('dashboard', compact('name', 'data'));
     }
+    public function fetchData()
+    {
+        $response = Http::withToken('746eb902819ff958739cc01599dba0b32b9172ae27e96d3b7684994770020781')
+            ->get('https://server-inorwat-main.kq6wtm.easypanel.host/sensor');
+
+        // Decode the JSON response
+        $data = $response->json();
+
+        return response()->json($data);
+    }
 
 
     public function toogleSprayer(Request $request)
