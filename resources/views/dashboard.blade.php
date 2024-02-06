@@ -53,7 +53,7 @@
                             </div>
 
 
-                            <form action="{{ route('logout') }}" method="POST" id="logoutForm">
+                            <form action="{{ secure_url('logout') }}" method="POST" id="logoutForm">
                                 @csrf
                             </form>
                             <a href="#" onclick="document.getElementById('logoutForm').submit()">

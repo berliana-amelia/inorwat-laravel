@@ -46,7 +46,7 @@
 
                                 </div>
                                 <div class="card-body">
-                                    <form role="form" action="{{ route('auth') }}" method="POST">
+                                    <form role="form" action="{{ secure_url('auth') }}" method="POST">
                                         @csrf
                                         <label>Email</label>
                                         <div class="mb-3">
