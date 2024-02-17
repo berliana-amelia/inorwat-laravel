@@ -351,7 +351,6 @@
                 .then(data => {
                     // Update the UI for each data point
                     updateDataPoint('humidity', data.humidity);
-                    updateDataPoint('ph', data.ph);
                     updateDataPoint('temperature', data.temperature);
                     updateMotorStatus(data.motor);
                     updateSprayerStatus(data.sprayer);
