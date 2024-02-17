@@ -12,7 +12,7 @@
         integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="{{ secure_asset('assets/css/custom.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
 
     <style>
         .switch {
@@ -110,7 +110,7 @@
                             </div>
 
 
-                            <form action="{{ secure_url('logout') }}" method="POST" id="logoutForm">
+                            <form action="{{ route('logout') }}" method="POST" id="logoutForm">
                                 @csrf
                             </form>
                             <a href="#" onclick="document.getElementById('logoutForm').submit()">
@@ -182,7 +182,10 @@
                                                         <h5 class="card-text-custom2">Hari ke-{{ $daysDifference }}</h5>
                                                         <p>Start Date :
                                                             {{ \Carbon\Carbon::parse($data['startDate'])->format('l, d F Y') }}
+                                                            -
+                                                            {{ $data['startTime'] }} WIB
                                                         </p>
+
                                                     </div>
                                                 @endif
                                             </div>
@@ -210,9 +213,17 @@
                                     </div>
                                     <div class="col-md-1 position-absolute bottom-0 end-0 m-3">
                                         @if ($data['startStatus'] == 0)
-                                            <button class="btn btn-primary btn-lg" id="startButton">Start</button>
+                                            <form action="{{ route('startStatus') }}" method="POST">
+                                                @csrf
+                                                <input hidden name="status" value="1" />
+                                                <button class="btn btn-primary btn-lg" id="startButton">Start</button>
+                                            </form>
                                         @else
-                                            <button class="btn btn-danger btn-lg" id="stopButton">Stop</button>
+                                            <form action="{{ route('startStatus') }}" method="POST">
+                                                @csrf
+                                                <input hidden value="0" name="status" />
+                                                <button class="btn btn-danger btn-lg" id="stopButton">Stop</button>
+                                            </form>
                                         @endif
                                     </div>
 
@@ -230,7 +241,7 @@
                                 <div class="row align-items-center text-center justify-content-center">
                                     <div class="col-md-6">
                                         <!-- Icon (Assuming you have an icon, replace this with your actual icon) -->
-                                        <img src="{{ secure_asset('IMG/humidity.svg') }}" alt="Icon"
+                                        <img src="{{ asset('IMG/humidity.svg') }}" alt="Icon"
                                             class="img-fluid" />
                                     </div>
                                     <div class="col-md-6">
@@ -248,7 +259,7 @@
                                 <div class="row align-items-center text-center justify-content-center">
                                     <div class="col-md-6">
                                         <!-- Icon (Assuming you have an icon, replace this with your actual icon) -->
-                                        <img src="{{ secure_asset('IMG/temperature.svg') }}" alt="Icon"
+                                        <img src="{{ asset('IMG/temperature.svg') }}" alt="Icon"
                                             class="img-fluid" />
                                     </div>
                                     <div class="col-md-6">

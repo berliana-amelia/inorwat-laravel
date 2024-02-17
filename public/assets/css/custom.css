@@ -23,7 +23,7 @@
 }
 
 .card-text-custom {
-    width: 127px;
+    /* width: 127px; */
     color: rgba(81, 145, 110, 1);
     font-family: Lato;
     font-weight: Bold;

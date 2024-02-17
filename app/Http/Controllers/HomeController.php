@@ -42,8 +42,11 @@ class HomeController extends Controller
 
     public function stopStart(Request $req)
     {
-        $startStatus = $req->input('startStatus');
+        $startStatus = $req->input('status');
+        $jakartaTime = Carbon::now('Asia/Jakarta');
 
+        // Format the time as "19:23"
+        $formattedTime = $jakartaTime->format('H:i');
         // Your server URL
         $url = 'https://server-inorwat-main.kq6wtm.easypanel.host/sensor';
 
@@ -56,16 +59,27 @@ class HomeController extends Controller
             'Authorization' => 'Bearer ' . $token,
         ])->put($url, [
             'startStatus' => $startStatus,
+            'startTime' => $formattedTime
         ]);
 
         // Check if the API response status code is 200
         if ($response->status() == 200) {
             // Redirect to the home page
-            return response()->json($response->json());
+            $data = $response->json();
+
+            $hariStart = $data['startDate'];
+            $name = Session::get('user.name');
+
+            $startDate = Carbon::create($hariStart);
+
+            // Calculate the difference in days
+            $daysDifference = $startDate->diffInDays(Carbon::now());
+
+            return view('dashboard', compact('name', 'data', 'daysDifference'));
         }
 
         // If the status code is not 200, return the API response as JSON
-        return response()->json($response->json());
+        return redirect()->back();
     }
 
     public function toogleSprayer(Request $request)
