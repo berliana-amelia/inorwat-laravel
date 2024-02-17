@@ -30,6 +30,13 @@
     font-size: 64px;
 }
 
+.card-text-custom2 {
+    color: rgba(81, 145, 110, 1);
+    font-family: Lato;
+    font-weight: Bold;
+    font-size: 64px;
+}
+
 body {
     font-family: "Arial", sans-serif;
 }
@@ -171,7 +178,18 @@ body {
 /* Switch styling */
 /* Updated Switch styling for a bigger and rounder switch */
 
-
 test {
     color: blue;
+}
+
+.last-online-indicator {
+    display: flex;
+    align-items: center;
+}
+
+.circle {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    margin-right: 8px; /* Adjust as needed for spacing */
 }

@@ -168,6 +168,55 @@
             <main id="content" class="col-md-9 px-md-4">
 
                 <div class="row">
+                    <div class="col-md-11">
+                        <div class="card-custom" style="height: 184px">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-11   ">
+                                        <div class="row">
+                                            <div class="col-md-12 d-flex align-items-center" style="height: 8rem">
+                                                @if ($data['startStatus'] == 0)
+                                                    <h5 class="card-text-custom2">Ayo Mulai!</h5>
+                                                @else
+                                                    <h5 class="card-text-custom2">Hari ke-X</h5>
+                                                @endif
+                                            </div>
+
+                                            <div class="col-md-12" style="text-align: left;">
+                                                @php
+                                                    $lastOnlineTimestamp = strtotime($data['lastOnline']);
+                                                    $currentTime = time();
+                                                    $differenceInMinutes = round(($currentTime - $lastOnlineTimestamp) / 60);
+                                                    $isWithinLast5Minutes = $differenceInMinutes <= 5;
+
+                                                    $lastOnlineFormatted = \Carbon\Carbon::parse($data['lastOnline'])->format('l, j M Y H:i:s');
+                                                @endphp
+
+                                                <div class="last-online-indicator">
+                                                    <div class="circle"
+                                                        style="background-color: {{ $isWithinLast5Minutes ? 'green' : 'red' }}">
+                                                    </div>
+                                                    Last Online {{ $lastOnlineFormatted }} (~{{ $differenceInMinutes }}
+                                                    {{ $differenceInMinutes === 1 ? 'minute' : 'minutes' }} ago)
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1 position-absolute bottom-0 end-0 m-3">
+                                        @if ($data['startStatus'] == 0)
+                                            <button class="btn btn-primary btn-lg" id="startButton">Start</button>
+                                        @else
+                                            <button class="btn btn-danger btn-lg" id="stopButton">Stop</button>
+                                        @endif
+                                    </div>
+
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <!-- Cards -->
                     <div class="col-md-5">
                         <div class="card-custom" style="height: 184px">
@@ -198,25 +247,10 @@
                                             class="img-fluid" />
                                     </div>
                                     <div class="col-md-6">
-                                        <p class="card-text-custom" id="temperatureValue">{{ $data['temperature'] }}
+                                        <p class="card-text-custom" id="temperatureValue">
+                                            {{ number_format($data['temperature'], 1) }}
+
                                         </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-5">
-                        <div class="card-custom" style="height: 184px">
-                            <div class="card-body">
-                                <h5 class="card-tittle-custom">pH</h5>
-                                <div class="row align-items-center text-center justify-content-center">
-                                    <div class="col-md-6">
-                                        <!-- Icon (Assuming you have an icon, replace this with your actual icon) -->
-                                        <img src="{{ secure_asset('IMG/ph.svg') }}" alt="Icon"
-                                            class="img-fluid" />
-                                    </div>
-                                    <div class="col-md-6">
-                                        <p class="card-text-custom" id="phValue">{{ $data['ph'] }}</p>
                                     </div>
                                 </div>
                             </div>
