@@ -406,6 +406,31 @@
         setInterval(fetchLatestData, 5000);
     </script>
     <script>
+        $(document).ready(function() {
+            $("#startButton, #stopButton").click(function() {
+                var startStatus = ($(this).attr("id") === "startButton") ? 0 : 1;
+
+                $.ajax({
+                    type: "PUT",
+                    url: "/startStatus",
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    data: JSON.stringify({
+                        "startStatus": startStatus
+                    }),
+                    success: function(response) {
+                        console.log(response);
+                        // Handle the response as needed
+                    },
+                    error: function(error) {
+                        console.error(error);
+                        // Handle the error as needed
+                    }
+                });
+            });
+        });
+
         function toggleMotor(isChecked) {
             var motorValue = isChecked ? 1 : 0;
 

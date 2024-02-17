@@ -31,7 +31,7 @@ class HomeController extends Controller
     }
     public function fetchData()
     {
-        $response = Http::withToken('746eb902819ff958739cc01599dba0b32b9172ae27e96d3b7684994770020781')
+        $response = Http::withToken(env('SECRET_KEY'))
             ->get('https://server-inorwat-main.kq6wtm.easypanel.host/sensor/web');
 
         // Decode the JSON response
@@ -40,6 +40,33 @@ class HomeController extends Controller
         return response()->json($data);
     }
 
+    public function stopStart(Request $req)
+    {
+        $startStatus = $req->input('startStatus');
+
+        // Your server URL
+        $url = 'https://server-inorwat-main.kq6wtm.easypanel.host/sensor';
+
+        // Your API token
+        $token = env('SECRET_KEY');
+
+        // Set up the PUT request
+        $response = Http::withHeaders([
+            'Content-Type' => 'application/json',
+            'Authorization' => 'Bearer ' . $token,
+        ])->put($url, [
+            'startStatus' => $startStatus,
+        ]);
+
+        // Check if the API response status code is 200
+        if ($response->status() == 200) {
+            // Redirect to the home page
+            return response()->json($response->json());
+        }
+
+        // If the status code is not 200, return the API response as JSON
+        return response()->json($response->json());
+    }
 
     public function toogleSprayer(Request $request)
     {
