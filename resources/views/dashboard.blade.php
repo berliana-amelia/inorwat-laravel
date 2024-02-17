@@ -110,7 +110,7 @@
                             </div>
 
 
-                            <form action="{{ route('logout') }}" method="POST" id="logoutForm">
+                            <form action="{{ secure_url('logout') }}" method="POST" id="logoutForm">
                                 @csrf
                             </form>
                             <a href="#" onclick="document.getElementById('logoutForm').submit()">
@@ -213,13 +213,13 @@
                                     </div>
                                     <div class="col-md-1 position-absolute bottom-0 end-0 m-3">
                                         @if ($data['startStatus'] == 0)
-                                            <form action="{{ route('startStatus') }}" method="POST">
+                                            <form action="{{ secure_url('startStatus') }}" method="POST">
                                                 @csrf
                                                 <input hidden name="status" value="1" />
                                                 <button class="btn btn-primary btn-lg" id="startButton">Start</button>
                                             </form>
                                         @else
-                                            <form action="{{ route('startStatus') }}" method="POST">
+                                            <form action="{{ secure_url('startStatus') }}" method="POST">
                                                 @csrf
                                                 <input hidden value="0" name="status" />
                                                 <button class="btn btn-danger btn-lg" id="stopButton">Stop</button>
