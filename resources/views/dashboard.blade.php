@@ -12,7 +12,7 @@
         integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('assets/css/custom.css') }}">
 
     <style>
         .switch {
@@ -241,7 +241,7 @@
                                 <div class="row align-items-center text-center justify-content-center">
                                     <div class="col-md-6">
                                         <!-- Icon (Assuming you have an icon, replace this with your actual icon) -->
-                                        <img src="{{ asset('IMG/humidity.svg') }}" alt="Icon"
+                                        <img src="{{ secure_asset('IMG/humidity.svg') }}" alt="Icon"
                                             class="img-fluid" />
                                     </div>
                                     <div class="col-md-6">
@@ -259,7 +259,7 @@
                                 <div class="row align-items-center text-center justify-content-center">
                                     <div class="col-md-6">
                                         <!-- Icon (Assuming you have an icon, replace this with your actual icon) -->
-                                        <img src="{{ asset('IMG/temperature.svg') }}" alt="Icon"
+                                        <img src="{{ secure_asset('IMG/temperature.svg') }}" alt="Icon"
                                             class="img-fluid" />
                                     </div>
                                     <div class="col-md-6">
