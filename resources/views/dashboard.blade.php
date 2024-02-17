@@ -178,7 +178,12 @@
                                                 @if ($data['startStatus'] == 0)
                                                     <h5 class="card-text-custom2">Ayo Mulai!</h5>
                                                 @else
-                                                    <h5 class="card-text-custom2">Hari ke-X</h5>
+                                                    <div class="row">
+                                                        <h5 class="card-text-custom2">Hari ke-{{ $daysDifference }}</h5>
+                                                        <p>Start Date :
+                                                            {{ \Carbon\Carbon::parse($data['startDate'])->format('l, d F Y') }}
+                                                        </p>
+                                                    </div>
                                                 @endif
                                             </div>
 
@@ -196,7 +201,7 @@
                                                     <div class="circle"
                                                         style="background-color: {{ $isWithinLast5Minutes ? 'green' : 'red' }}">
                                                     </div>
-                                                    Last Online {{ $lastOnlineFormatted }} (~{{ $differenceInMinutes }}
+                                                    Last Online: {{ $lastOnlineFormatted }} (~{{ $differenceInMinutes }}
                                                     {{ $differenceInMinutes === 1 ? 'minute' : 'minutes' }} ago)
                                                 </div>
 
@@ -348,6 +353,8 @@
                     updateDataPoint('humidity', data.humidity);
                     updateDataPoint('ph', data.ph);
                     updateDataPoint('temperature', data.temperature);
+                    updateMotorStatus(data.motor);
+                    updateSprayerStatus(data.sprayer);
 
                 })
                 .catch(error => {
@@ -359,6 +366,43 @@
             // Update the value of the specified data point on the UI
             document.getElementById(dataPoint + 'Value').innerText = value;
         }
+
+        function updateMotorStatus(motorValue) {
+            // Update the motor status text on the UI
+            var motorStatusElement = $('#motorStatus');
+            motorStatusElement.text('Motor Status: ' + (motorValue == 1 ? 'ON' : 'OFF'));
+
+            // Update the background color of the slider based on the motor status
+            var motorSwitchElement = $('#motorSwitch');
+            var sliderElement = $('.slider.round', motorSwitchElement.parent());
+
+            if (motorValue == 1) {
+                motorSwitchElement.prop('checked', true);
+                sliderElement.css('background-color', '#27774C');
+            } else {
+                motorSwitchElement.prop('checked', false);
+                sliderElement.css('background-color', '');
+            }
+        }
+
+        function updateSprayerStatus(sprayerValue) {
+            // Update the sprayer status text on the UI
+            var sprayerStatusElement = $('#sprayerStatus');
+            sprayerStatusElement.text('Sprayer Status: ' + (sprayerValue == 1 ? 'ON' : 'OFF'));
+
+            // Update the background color of the slider based on the sprayer status
+            var sprayerSwitchElement = $('#sprayerSwitch');
+            var sliderElement = $('.slider.round', sprayerSwitchElement.parent());
+
+            if (sprayerValue == 1) {
+                sprayerSwitchElement.prop('checked', true);
+                sliderElement.css('background-color', '#27774C');
+            } else {
+                sprayerSwitchElement.prop('checked', false);
+                sliderElement.css('background-color', '');
+            }
+        }
+
         setInterval(fetchLatestData, 5000);
     </script>
     <script>

@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Carbon\Carbon;
 
 
 class HomeController extends Controller
@@ -17,10 +18,16 @@ class HomeController extends Controller
 
         // Decode the JSON response
         $data = $response->json();
+
+        $hariStart = $data['startDate'];
         $name = Session::get('user.name');
 
+        $startDate = Carbon::create($hariStart);
 
-        return view('dashboard', compact('name', 'data'));
+        // Calculate the difference in days
+        $daysDifference = $startDate->diffInDays(Carbon::now());
+
+        return view('dashboard', compact('name', 'data', 'daysDifference'));
     }
     public function fetchData()
     {
